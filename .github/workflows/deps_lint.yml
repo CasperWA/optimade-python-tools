@@ -1,11 +1,6 @@
 name: CI tests
 
-on:
-  pull_request:
-  push:
-    branches:
-    - master
-    - 'push-action/**'
+on: [pull_request, push]
 
 jobs:
 
@@ -97,20 +92,6 @@ jobs:
 
     - name: Build the Docker images
       run: docker-compose build
-
-    - name: Start Docker image - server
-      run: |
-        docker-compose up optimade &
-        .github/workflows/wait_for_it.sh localhost:3213 -t 120
-        sleep 15
-
-    - name: Test server, including OPTIONAL base URLs
-      uses: Materials-Consortia/optimade-validator-action@v2
-      with:
-        port: 3213
-        path: /
-        all versioned paths: yes
-        validator version: ${{ github.sha }}  # This ensures the head of a PR or latest push commit is tested
 
     - name: Start Docker image - index server
       run: |

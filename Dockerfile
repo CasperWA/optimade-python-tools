@@ -8,13 +8,16 @@ COPY optimade ./optimade
 COPY providers/src/links/v1/providers.json ./optimade/server/data/
 RUN pip install -e .[server]
 
+# Use MaterialsCloud data
+COPY mcloud ./mcloud
+ENV OPTIMADE_INDEX_LINKS_PATH /app/mcloud/index_links.json
+
 ARG PORT=5000
 EXPOSE ${PORT}
 
 COPY .docker/run.sh ./
 
 ARG CONFIG_FILE=optimade_config.json
-COPY ${CONFIG_FILE} ./config.json
-ENV OPTIMADE_CONFIG_FILE /app/config.json
+ENV OPTIMADE_CONFIG_FILE /app/${CONFIG_FILE}
 
 CMD ["/app/run.sh"]

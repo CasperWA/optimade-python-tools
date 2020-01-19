@@ -8,4 +8,4 @@ else
     PORT=5000
 fi
 
-uvicorn optimade.server.$MAIN:app --host 0.0.0.0 --port $PORT
+uvicorn optimade.server.$MAIN:app --host 0.0.0.0 --port $PORT --log-level info
