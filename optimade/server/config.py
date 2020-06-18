@@ -70,8 +70,8 @@ class ServerConfig(BaseSettings):
     page_limit_max: int = Field(
         500, description="Max allowed number of resources per page"
     )
-    default_db: str = Field(
-        "test_server",
+    default_db: Optional[str] = Field(
+        None,
         description="ID of /links endpoint resource for the chosen default OPTIMADE implementation (only relevant for the index meta-database)",
     )
     root_path: Optional[str] = Field(
